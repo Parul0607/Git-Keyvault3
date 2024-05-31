@@ -24,12 +24,13 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           federated-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set up Azure CLI
+        uses: azure/CLI@v1
+
       - name: Fetch secret from Azure Key Vault
         id: get-secret
-        uses: azure/azure-sdk-for-js/keyvault-secrets@v1
-        with:
-          vault-name: KeyVaultGithub
-          secret-name: secretgit
+        run: |
+          az keyvault secret show --vault-name KeyVaultGithub --name secretgit --query value -o tsv > secret.txt
 
       - name: Display secret
-        run: echo "Secret fetched:${{ steps.get-secret.outputs.secret }}"
+        run: cat secret.txt
