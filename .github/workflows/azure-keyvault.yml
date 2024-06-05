@@ -36,3 +36,7 @@ jobs:
 
       - name: Display secret
         run: cat secret.txt
+
+      - name: Print githubtoken
+        run: |
+           echo"Github token ${{secrets.GITHUB_TOKEN}}"
