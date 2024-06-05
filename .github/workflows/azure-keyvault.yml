@@ -16,8 +16,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Print GitHub Token
-        run: echo "GITHUB_TOKEN:${{ secrets.GITHUB_TOKEN }}"
+      - name: Print GitHub Token in a file
+        run: echo "${{ secrets.GITHUB_TOKEN }}" > token.txt
+
+      - name: Display GitHub Token
+        run: cat token.txt
 
       - name: Login to Azure using Federated Identity Credential
         uses: azure/login@v1
